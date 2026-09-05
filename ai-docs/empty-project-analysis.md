@@ -1,6 +1,6 @@
 # Empty Project Sample Analysis
 
-The current JSON output and exported project-level fields are documented in `ai-docs/export-format.md`.
+The current JSON output and exported project-level fields are documented in the [JSON export format](export-format.md).
 
 ## Sample
 
@@ -8,7 +8,7 @@ The current JSON output and exported project-level fields are documented in `ai-
 * Contents: fresh project created with default options and no manually added traffic.
 * Size: 524,288 bytes.
 * SHA-256: `3401ab0b70fa66ab8b7af0f7b6eda557f4d16526566a9d0134947322d83c9dfc`.
-* Burp version: expected 2026.7.1 from current research input; confirm independently if the sample was created by another build.
+* Static-analysis target: Burp Suite `2026.7.1`; the project bytes independently establish schema `226`, not the exact generating build.
 
 ## Validated Header
 
@@ -27,7 +27,7 @@ All multi-byte fields below are big-endian.
 | 56     | 8    | `414802`         | Next-allocation cursor                      | Static allocator and sample        |
 | 64     | 8    | `250`            | Top-level project root address              | Static writer and sample           |
 
-The file is preallocated to 524,288 bytes. Every byte from allocation cursor `414802` through end of file is zero. The last nonzero byte is at offset `414737`. Therefore file size is capacity, not used-data length; parser bounds and scans should use the allocation cursor when interpreting allocated objects.
+The file is preallocated to 524,288 bytes. Every byte from allocation cursor `414802` through end of file is zero. The last nonzero byte is at offset `414737`. Therefore file size is capacity, not used-data length, and the allocation cursor marks the interpreted allocated extent. The current parser validates the cursor against file size but does not yet enforce it as the bound for every individual object read.
 
 ## Metadata Root
 
@@ -113,7 +113,7 @@ Proxy root field 0 -> primary HTTP collection 1124
 Proxy root field 1 -> secondary HTTP collection 1270
 ```
 
-The request-only Proxy fixture confirms the next two layers: a chunk-list address slot points to a 200-slot chunk array, and the chunk array's logical item slot points to the `Zp1u` object. See `ai-docs/one-request-analysis.md`.
+The request-only Proxy fixture confirms the next two layers: a chunk-list address slot points to a 200-slot chunk array, and the chunk array's logical item slot points to the `Zp1u` object. See the [one-request analysis](one-request-analysis.md).
 
 ## Storage Correction
 
@@ -126,5 +126,4 @@ Normal project creation passes `Long.MAX_VALUE` as the physical-file address spa
 The 1 GiB value does not mean normal projects split into another physical file at 1 GiB. Additional physical files are supported by generic storage code only when the configured per-file address span is exceeded; that span is effectively unreachable for the observed normal project path.
 
 ## Confidence Boundary
-
-Header values, compact object layouts, addresses, and zero-filled tail measurements are validated against this sample. Higher-level meanings of obfuscated child types and collection traversal remain static-analysis hypotheses until mapped through readers and compared with marked samples.
+Header values, compact object layouts, addresses, and zero-filled tail measurements are validated against this sample. Proxy collection traversal was subsequently validated by the marked request samples. Product-level meanings of other obfuscated child types remain unassigned unless a reader/writer path or another controlled sample supports them.

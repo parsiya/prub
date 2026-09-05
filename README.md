@@ -10,28 +10,30 @@ This project is unofficial. Burp Suite is a product of PortSwigger Ltd. This
 project is not affiliated with or endorsed by PortSwigger.
 
 ## Supported Format
-Current support was derived from Burp Suite `2026.7.1` and controlled project
-files using schema `226` and outer storage version `1`.
+Current support was derived from static analysis of Burp Suite `2026.7.1` and
+controlled project files using schema `226` and outer storage version `1`.
 
 Supported data:
 
 * Project metadata.
-* Proxy HTTP history.
+* Proxy HTTP history, extensions can already do this but you need to open the file in Burp.
 * Repeater tabs, groups, requests, and responses.
 * Target Site Map requests and responses.
 
-Scanner records, WebSocket messages, newer schemas, and project writing are not
-supported.
+Scanner records, WebSocket messages, extension-owned data, and project writing
+are not supported. Only schema `226` is documented and sample-validated.
 
 ## Reverse-Engineered Format Notes
 The evidence and current format mapping are published under `ai-docs/`:
 
+* [ai-docs/format-specification.md](ai-docs/format-specification.md) consolidates verified binary structures, field mappings, and compatibility limits.
 * [ai-docs/export-format.md](ai-docs/export-format.md) defines every field in the JSON export.
 * [ai-docs/empty-project-analysis.md](ai-docs/empty-project-analysis.md) describes the header, roots, and baseline object graph.
 * [ai-docs/one-request-analysis.md](ai-docs/one-request-analysis.md) and [ai-docs/request-response-analysis.md](ai-docs/request-response-analysis.md) map Proxy records.
 * [ai-docs/repeater-both-analysis.md](ai-docs/repeater-both-analysis.md) maps Repeater tabs, groups, and message pairs.
 * [ai-docs/target-sitemap-analysis.md](ai-docs/target-sitemap-analysis.md) maps Target Site Map hierarchy and messages.
 * [ai-docs/project-portability-analysis.md](ai-docs/project-portability-analysis.md) documents persisted identifiers and privacy findings.
+
 
 ## Install
 
@@ -144,9 +146,9 @@ prub metadata project.burp
 
 ```json
 {
-  "header_random_identifier": 3546370710,
-  "installation_id": "0kv7t3rw4hlqchbz0ilu",
-  "project_identifier": "0s1cy72tm7ras1za8n0z",
+  "header_random_identifier": 305419896,
+  "installation_id": "exampleinstall000001",
+  "project_identifier": "exampleproject000001",
   "project_name": "example",
   "schema_current": 226,
   "schema_floor": 226
@@ -182,8 +184,12 @@ format research. It does not search the project file.
 
 ## Safety
 The parser validates known headers, record lengths, object descriptors,
-forwarding depth, collection dimensions, and addresses. It never modifies the
-input project.
+forwarding depth, collection dimensions, nonnegative addresses, and read bounds
+within the mapped file. It never modifies the input project. It is not yet
+claimed to be hardened against arbitrary malicious files; individual object
+reads are not currently bounded by the allocation cursor.
 
 Treat project files and exports as sensitive. They may contain credentials,
-cookies, authorization headers, private URLs, and response bodies.
+cookies, authorization headers, private URLs, and response bodies. The optional
+`installation_id` metadata can also correlate projects created under the same
+Burp user profile; it is excluded from normal exports.

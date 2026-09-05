@@ -1,6 +1,6 @@
 # Project Portability and Identity Metadata
 
-The normal JSON export and fields intentionally omitted from it are documented in `ai-docs/export-format.md`.
+The normal JSON export and fields intentionally omitted from it are documented in the [JSON export format](export-format.md).
 This note records what identity-like information was found in the four controlled schema-226 Burp project files and what remains unknown.
 
 ## Verified Root Metadata
@@ -13,14 +13,7 @@ Project-root descriptor `Zys` contains immutable string fields `0`, `6`, and `15
 * Static update/download paths pass the installation ID separately from a license supplier. The installation ID is randomly generated and is not derived from the license owner, key, activation response, or entitlement.
 * Header offset `16` contains a random 32-bit identifier that also travels with the file.
 
-Observed values:
-
-* Empty project: name `empty-project`, project ID `0s1cy72tm7ras1za8n0z`, installation ID `0kv7t3rw4hlqchbz0ilu`.
-* Request-only project: name `2026-08-03-one-request`, project ID `xynn43yvy49vos2xiaky`, same installation ID.
-* Request/response project: name `2026-08-03-request-response`, project ID `6vj0bxjpuzg2r3348fmy`, same installation ID.
-* Repeater project: name `2026-08-030-repeater-both`, project ID `mudp8oxvxzmwhdykjij7`, same installation ID.
-
-The installation ID is potentially linkable metadata across projects created under the same Burp user profile.
+All four controlled projects had distinct project identifiers and header random identifiers but the same installation ID. Exact values are omitted from this public note because the installation ID is potentially linkable metadata across projects created under the same Burp user profile.
 
 ## Save-Copy Behavior
 Static UI and writer paths show that Burp's save-copy flow can ask whether to include Dashboard and Collaborator IDs. These identifiers may therefore remain in a copied project depending on selected options. Their complete object locations are not yet mapped.

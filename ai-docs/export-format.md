@@ -2,9 +2,11 @@
 
 `prub export PROJECT.burp export.json` writes one JSON object containing all supported HTTP messages from Proxy, Repeater, and Target Site Map.
 
+The current `0.1.0` output has no explicit export-format version field. Consumers should treat this field shape as release-specific. `burp_schema` identifies the input project schema and does not version this JSON document.
+
 ## Top-Level Object
 
-* `burp_schema`: Burp project schema number read from the input file.
+* `burp_schema`: Burp project schema number read from the input file; only schema `226` is currently sample-validated.
 * `project_name`: persisted Burp project display name, or `null` if absent.
 * `proxy`: Proxy HTTP history messages.
 * `repeater`: Repeater request/response pairs.
@@ -76,7 +78,7 @@ Target entries contain only the common message fields:
 }
 ```
 
-Burp internally assigns hierarchy node types to Target objects. Those numeric implementation details are documented in `ai-docs/target-sitemap-analysis.md#identity-index` and are intentionally not included in the JSON export.
+Burp internally assigns hierarchy node types to Target objects. Those numeric implementation details are documented in the [Target identity-index analysis](target-sitemap-analysis.md#identity-index) and are intentionally not included in the JSON export.
 
 ## Complete Example
 
@@ -114,4 +116,4 @@ Burp internally assigns hierarchy node types to Target objects. Those numeric im
 }
 ```
 
-Base64 values decode to the original byte-for-byte HTTP messages, including binary bodies and CRLF framing.
+Base64 values decode to the byte-for-byte payload returned by the project parser, including CRLF framing. The export layer is binary-safe; direct storage of complete textual HTTP messages is sample-validated, while a dedicated all-byte Burp fixture has not yet been tested.

@@ -1,6 +1,6 @@
 # Target and Site Map Analysis
 
-The current JSON output produced from these structures is documented in `ai-docs/export-format.md`.
+The current JSON output produced from these structures is documented in the [JSON export format](export-format.md).
 
 ## Ownership
 

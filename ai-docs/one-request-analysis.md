@@ -1,6 +1,6 @@
 # One-Request Proxy Sample Analysis
 
-The current JSON output produced from these structures is documented in `ai-docs/export-format.md`.
+The current JSON output produced from these structures is documented in the [JSON export format](export-format.md).
 
 ## Sample
 
@@ -107,4 +107,4 @@ prub inspect proxy PROJECT.burp
 
 It discovers both collection paths from header and descriptor fields, follows bounded forwarding records, honors collection leading offsets, and reports request/response variant addresses and lengths. On this sample both collection paths report item `415222`, field `15` address `414940`, length `274`, and null fields `16..20`.
 
-The full marked Proxy exchange confirmed that a normal completed HTTP/1.1 exchange uses response field `18`. See `ai-docs/request-response-analysis.md`.
+The full marked Proxy exchange confirmed that a normal completed HTTP/1.1 exchange uses response field `18`. See the [request-response analysis](request-response-analysis.md).
