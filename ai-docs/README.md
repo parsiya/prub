@@ -1,6 +1,11 @@
 # ai-docs
 These AI-assisted reverse-engineering notes record the evidence and confidence boundaries behind `prub`.
 
+## Research History
+
+* [Activity log](activity-log.md) records the reverse-engineering and implementation chronology.
+* [Burp classes and methods](burp-classes.md) indexes the obfuscated symbols, important methods, and relationships used in the analysis.
+
 ## Specifications
 
 * [Burp project format](format-specification.md) consolidates verified binary framing, object layouts, HTTP mappings, storage behavior, and compatibility limits.

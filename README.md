@@ -9,6 +9,11 @@ allows you to export data from project files without opening them in Burp.
 This project is unofficial. Burp Suite is a product of PortSwigger Ltd. This
 project is not affiliated with or endorsed by PortSwigger.
 
+* Model: GPT-5.6-Sol - High reasoning effort - 1M context window.
+* Rough cost: ~200 USD (20,000 GitHub Copilot AI credits).
+* Harness: GitHub Copilot CLI and GitHub Copilot Chat in VS Code.
+* Current token cost: Roughly 200 USD in GitHub AI credits.
+
 ## Supported Format
 Current support was derived from static analysis of Burp Suite `2026.7.1` and
 controlled project files using schema `226` and outer storage version `1`.
@@ -26,6 +31,8 @@ are not supported. Only schema `226` is documented and sample-validated.
 ## Reverse-Engineered Format Notes
 The evidence and current format mapping are published under `ai-docs/`:
 
+* [ai-docs/activity-log.md](ai-docs/activity-log.md) records the reverse-engineering and implementation chronology.
+* [ai-docs/burp-classes.md](ai-docs/burp-classes.md) indexes the important obfuscated classes, methods, and relationships.
 * [ai-docs/format-specification.md](ai-docs/format-specification.md) consolidates verified binary structures, field mappings, and compatibility limits.
 * [ai-docs/export-format.md](ai-docs/export-format.md) defines every field in the JSON export.
 * [ai-docs/empty-project-analysis.md](ai-docs/empty-project-analysis.md) describes the header, roots, and baseline object graph.
@@ -33,7 +40,6 @@ The evidence and current format mapping are published under `ai-docs/`:
 * [ai-docs/repeater-both-analysis.md](ai-docs/repeater-both-analysis.md) maps Repeater tabs, groups, and message pairs.
 * [ai-docs/target-sitemap-analysis.md](ai-docs/target-sitemap-analysis.md) maps Target Site Map hierarchy and messages.
 * [ai-docs/project-portability-analysis.md](ai-docs/project-portability-analysis.md) documents persisted identifiers and privacy findings.
-
 
 ## Install
 
