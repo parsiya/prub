@@ -2,6 +2,8 @@
 (A)I reverse engineered Burp Suite project format and created a tool to export
 Proxy history, Repeater messages, and Target Site Map traffic from projects.
 
+More discussion: https://parsiya.net/blog/burp-project-reverse/.
+
 Burp's extension API has access to the Proxy History so export these have not
 been a problem. However, I've always wanted to export Repeater file. This also
 allows you to export data from project files without opening them in Burp.
