@@ -10,9 +10,8 @@ This project is unofficial. Burp Suite is a product of PortSwigger Ltd. This
 project is not affiliated with or endorsed by PortSwigger.
 
 * Model: GPT-5.6-Sol - High reasoning effort - 1M context window.
-* Rough cost: ~200 USD (20,000 GitHub Copilot AI credits).
+* Rough cost: ~160 USD (fewer than 16,000 GitHub Copilot AI credits).
 * Harness: GitHub Copilot CLI and GitHub Copilot Chat in VS Code.
-* Current token cost: Roughly 200 USD in GitHub AI credits.
 
 ## Supported Format
 Current support was derived from static analysis of Burp Suite `2026.7.1` and
